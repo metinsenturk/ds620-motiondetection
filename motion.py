@@ -36,7 +36,7 @@ if __name__ == '__main__':
         check, frame = video.read()
         check2, frame2 = video.read()
 
-        frame = cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
+        frame = cv2.resize(frame, (0,0), fx=0.4, fy=0.4)
         frame2 = cv2.resize(frame2, (0,0), fx=0.5, fy=0.5) 
 
         motion = 0
