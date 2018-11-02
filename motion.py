@@ -28,7 +28,7 @@ def diff_img(t_0, t_1, t_2):
 if __name__ == '__main__':
     static_background = None
 
-    video = cv2.VideoCapture(0)
+    video = cv2.VideoCapture(1)
     video.set(3, 1000)
     video.set(4, 1000)
 
