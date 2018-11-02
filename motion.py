@@ -51,8 +51,8 @@ if __name__ == '__main__':
         if static_background is None:
             static_background = gray
 
-        # diff_btw_background = cv2.absdiff(static_background, gray)
-        diff_btw_background = dist_map(frame, frame2)
+        diff_btw_background = cv2.absdiff(static_background, gray)
+        # diff_btw_background = dist_map(frame, frame2)
         # diff_btw_background = diff_img(static_background, gray, gray2)
 
         threshold_frame = cv2.threshold(
