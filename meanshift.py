@@ -3,7 +3,11 @@ import cv2 as cv
 
 
 if __name__ == '__main__':
-    cap = cv.VideoCapture('files/slow.flv')
+    cap = cv.VideoCapture(0, )
+    cap.set(3, 1920)
+    cap.set(4, 1080)
+    fourcc = cv.VideoWriter_fourcc(*'MJPG')
+    out = cv.VideoWriter('output.avi',fourcc, 20.0, (1920, 1080))
     # cap = cv.VideoCapture(1)
     # take first frame of the video
     ret, frame = cap.read()
@@ -25,18 +29,22 @@ if __name__ == '__main__':
                 hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
                 dst = cv.calcBackProject([hsv], [0], roi_hist, [0, 180], 1)
                 # apply meanshift to get the new location
-                ret, track_window = cv.meanShift(dst, track_window, term_crit)
+                ret, track_window = cv.CamShift(dst, track_window, term_crit)
                 # Draw it on image
                 x, y, w, h = track_window
                 img2 = cv.rectangle(frame, (x, y), (x+w, y+h), 255, 2)
+
+                # write the flipped frame
+                out.write(img2)
+
                 cv.imshow('img2', img2)
-                k = cv.waitKey(60) & 0xff
-                if k == 27:
+
+                if cv.waitKey(60) & 0xff == ord('q'):
                     break
-                else:
-                    cv.imwrite(chr(k)+".jpg", img2)
             else:
                 break
     
-    cv.destroyAllWindows()
     cap.release()
+    out.release()
+
+    cv.destroyAllWindows()

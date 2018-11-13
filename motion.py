@@ -4,7 +4,6 @@ import numpy as np
 
 # TODO: Face Detection 1
 
-
 def dist_map(frame1, frame2):
     """outputs pythagorean distance between two frames"""
     frame1_32 = np.float32(frame1)
@@ -16,6 +15,13 @@ def dist_map(frame1, frame2):
     return dist
 
 
+def avg_diff(frame1, frame2):
+    avg = frame1.copy().astype("float")
+    cv2.accumulateWeighted(frame2, avg, 0.5)
+    frameDelta = cv2.absdiff(frame2, cv2.convertScaleAbs(avg))
+    return frameDelta
+
+
 def diff_img(t_0, t_1, t_2):
     """
     document
@@ -24,20 +30,64 @@ def diff_img(t_0, t_1, t_2):
     d_2 = cv2.absdiff(t_2, t_0)
     return cv2.bitwise_and(d_1, d_2)
 
+def init_face_detection():
+    face_cascade = cv2.CascadeClassifier()
+    eyes_cascade = cv2.CascadeClassifier()
+
+    if not face_cascade.load('data/haarcascade_frontalface_default.xml'):
+        print('--(!)Error loading face cascade')
+        exit(0)
+    if not eyes_cascade.load('data/haarcascade_eye.xml'):
+        print('--(!)Error loading eyes cascade')
+        exit(0)
+
+    return face_cascade, eyes_cascade
+
+
+def face_detect(frame):
+    frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frame_gray = cv2.equalizeHist(frame_gray)
+    # -- Detect faces
+    faces = face_cascade.detectMultiScale(
+        frame_gray,
+        scaleFactor=1.1,
+        minNeighbors=5,
+        minSize=(30, 30)
+    )
+    for (x, y, w, h) in faces:
+        center = (x + w//2, y + h//2)
+        frame = cv2.ellipse(frame, center, (w//2, h//2),
+                           0, 0, 360, (255, 0, 255), 4)
+        faceROI = frame_gray[y:y+h, x:x+w]
+        
+        # -- In each face, detect eyes
+        eyes = eyes_cascade.detectMultiScale(faceROI)
+        for (x2, y2, w2, h2) in eyes:
+            eye_center = (x + x2 + w2//2, y + y2 + h2//2)
+            radius = int(round((w2 + h2)*0.25))
+            frame = cv2.circle(frame, eye_center, radius, (255, 0, 0), 4)
+    
+    return frame
 
 if __name__ == '__main__':
     static_background = None
+    saliency = None
+
+    face_cascade, eyes_cascade = init_face_detection()
 
     video = cv2.VideoCapture(0)
-    video.set(3, 1000)
-    video.set(4, 1000)
+    video.set(3, 1920)
+    video.set(4, 1080)
+
+    fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+    out = cv2.VideoWriter('output_m.avi',fourcc, 4, (1920, 1080))
 
     while True:
         check, frame = video.read()
         check2, frame2 = video.read()
 
-        # frame = cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
-        # frame2 = cv2.resize(frame2, (0,0), fx=0.5, fy=0.5) 
+        #frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+        #frame2 = cv2.resize(frame2, (0, 0), fx=0.5, fy=0.5)
 
         motion = 0
 
@@ -51,8 +101,8 @@ if __name__ == '__main__':
         if static_background is None:
             static_background = gray
 
-        diff_btw_background = cv2.absdiff(static_background, gray)
-        # diff_btw_background = dist_map(frame, frame2)
+        #diff_btw_background = cv2.absdiff(static_background, gray)
+        diff_btw_background = dist_map(frame, frame2)
         # diff_btw_background = diff_img(static_background, gray, gray2)
 
         threshold_frame = cv2.threshold(
@@ -74,6 +124,11 @@ if __name__ == '__main__':
                 (x, y, w, h) = cv2.boundingRect(countour)
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
+        frame = face_detect(frame)
+
+
+        out.write(frame)
+        
         cv2.imshow("frame", frame)
         cv2.imshow("gray", gray)
         cv2.imshow("edge", edge)
@@ -84,4 +139,5 @@ if __name__ == '__main__':
             break
 
     video.release()
+    out.release()
     cv2.destroyAllWindows()

@@ -27,7 +27,7 @@ def detectAndDisplay(frame):
 
 
 def init_video():
-    cap = cv.VideoCapture(1)
+    cap = cv.VideoCapture(0)
 
     if not cap.isOpened:
         print('--(!)Error opening video capture')
