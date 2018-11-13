@@ -28,7 +28,7 @@ def diff_img(t_0, t_1, t_2):
 if __name__ == '__main__':
     static_background = None
 
-    video = cv2.VideoCapture(1)
+    video = cv2.VideoCapture(0)
     video.set(3, 1000)
     video.set(4, 1000)
 
@@ -36,8 +36,8 @@ if __name__ == '__main__':
         check, frame = video.read()
         check2, frame2 = video.read()
 
-        frame = cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
-        frame2 = cv2.resize(frame2, (0,0), fx=0.5, fy=0.5) 
+        # frame = cv2.resize(frame, (0,0), fx=0.5, fy=0.5)
+        # frame2 = cv2.resize(frame2, (0,0), fx=0.5, fy=0.5) 
 
         motion = 0
 
