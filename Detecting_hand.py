@@ -35,6 +35,10 @@ def calculateFingers(res, drawing):
 camera = cv2.VideoCapture(0)
 camera.set(10, 200)
 
+fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+outf = cv2.VideoWriter('output_hand_org.avi',fourcc, 4, (1920, 1080))
+out = cv2.VideoWriter('output_hand_back.avi',fourcc, 4, (1920, 1080))
+
 while camera.isOpened():
     #Main Camera
     ret, frame = camera.read()
@@ -81,6 +85,13 @@ while camera.isOpened():
         print("Fingers"), cnt
         cv2.imshow('output', drawing)
 
-    k = cv2.waitKey(10)
-    if k == 27:  # press ESC to exit
+    outf.write(frame)
+    out.write(drawing)
+
+    if cv2.waitKey(1) == ord('q'):
         break
+
+outf.release()
+out.release()
+camera.release()
+cv2.destroyAllWindows()

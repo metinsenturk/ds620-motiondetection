@@ -70,8 +70,6 @@ def face_detect(frame):
     return frame
 
 if __name__ == '__main__':
-    static_background = None
-    saliency = None
 
     face_cascade, eyes_cascade = init_face_detection()
 
@@ -97,9 +95,6 @@ if __name__ == '__main__':
 
         gray2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
         gray2 = cv2.GaussianBlur(gray, (21, 21), 0)
-
-        if static_background is None:
-            static_background = gray
 
         #diff_btw_background = cv2.absdiff(static_background, gray)
         diff_btw_background = dist_map(frame, frame2)
