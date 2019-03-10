@@ -1,0 +1,582 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Motion-Code-Presentation}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{~Motion Detection}\label{motion-detection}
+
+    \textbf{Authors:} Metin Senturk Janam Dalal Pooja Umathe
+
+\textbf{Date:} 11.13.2018
+
+\textbf{Project:} Applications and Methods of Motion Detection
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{cv2}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \subsection{~Background Subtraction}\label{background-subtraction}
+
+    the main motion detection logic by using the differences btw two frames.
+function returns difference map.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{dist\PYZus{}map}\PY{p}{(}\PY{n}{frame1}\PY{p}{,} \PY{n}{frame2}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}outputs pythagorean distance between two frames\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{frame1\PYZus{}32} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{(}\PY{n}{frame1}\PY{p}{)}
+            \PY{n}{frame2\PYZus{}32} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{(}\PY{n}{frame2}\PY{p}{)}
+            \PY{n}{diff32} \PY{o}{=} \PY{n}{frame1\PYZus{}32} \PY{o}{\PYZhy{}} \PY{n}{frame2\PYZus{}32}
+            \PY{n}{norm32} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{diff32}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{diff32}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*}\PY{o}{*}
+                             \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{diff32}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{255}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{255}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{255}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{(}\PY{n}{norm32}\PY{o}{*}\PY{l+m+mi}{255}\PY{p}{)}
+            \PY{k}{return} \PY{n}{dist}
+\end{Verbatim}
+
+
+    loading face and eye template data into system.
+
+    function to detect face and eyes in any given frame.
+
+    detecting face and eye. The data that is used.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{face\PYZus{}cascade}\PY{p}{,} \PY{n}{eyes\PYZus{}cascade} \PY{o}{=} \PY{n}{init\PYZus{}face\PYZus{}detection}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    main loop to detect motion. all background steps are covered.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{video} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoCapture}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{video}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1920}\PY{p}{)}
+        \PY{n}{video}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1080}\PY{p}{)}
+        
+        \PY{n}{fourcc} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoWriter\PYZus{}fourcc}\PY{p}{(}\PY{o}{*}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MJPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{out} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoWriter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output\PYZus{}m.avi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fourcc}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1920}\PY{p}{,} \PY{l+m+mi}{1080}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+            \PY{n}{check}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{video}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+            \PY{n}{check2}\PY{p}{,} \PY{n}{frame2} \PY{o}{=} \PY{n}{video}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+        
+            \PY{n}{motion} \PY{o}{=} \PY{l+m+mi}{0}
+        
+            \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+            \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{edge} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mi}{35}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{)}
+        
+            \PY{n}{gray2} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{frame2}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+            \PY{n}{gray2} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{GaussianBlur}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{21}\PY{p}{,} \PY{l+m+mi}{21}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{}diff\PYZus{}btw\PYZus{}background = cv2.absdiff(static\PYZus{}background, gray)}
+            \PY{n}{diff\PYZus{}btw\PYZus{}background} \PY{o}{=} \PY{n}{dist\PYZus{}map}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{frame2}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} diff\PYZus{}btw\PYZus{}background = diff\PYZus{}img(static\PYZus{}background, gray, gray2)}
+        
+            \PY{n}{threshold\PYZus{}frame} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{threshold}\PY{p}{(}
+                \PY{n}{diff\PYZus{}btw\PYZus{}background}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{THRESH\PYZus{}BINARY}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{threshold\PYZus{}frame} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{dilate}\PY{p}{(}\PY{n}{threshold\PYZus{}frame}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        
+            \PY{p}{(}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{cnts}\PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{)} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{findContours}\PY{p}{(}
+                \PY{n}{threshold\PYZus{}frame}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{RETR\PYZus{}EXTERNAL}\PY{p}{,}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{CHAIN\PYZus{}APPROX\PYZus{}SIMPLE}
+            \PY{p}{)}
+        
+            \PY{k}{for} \PY{n}{countour} \PY{o+ow}{in} \PY{n}{cnts}\PY{p}{:}
+                \PY{k}{if} \PY{n}{cv2}\PY{o}{.}\PY{n}{contourArea}\PY{p}{(}\PY{n}{countour}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10000}\PY{p}{:}
+                    \PY{k}{continue}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h}\PY{p}{)} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{boundingRect}\PY{p}{(}\PY{n}{countour}\PY{p}{)}
+                    \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{w}\PY{p}{,} \PY{n}{y} \PY{o}{+} \PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        
+            \PY{n}{frame} \PY{o}{=} \PY{n}{face\PYZus{}detect}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+        
+        
+            \PY{n}{out}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+        
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{frame}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{)}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{diff\PYZus{}btw\PYZus{}background:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{diff\PYZus{}btw\PYZus{}background}\PY{p}{)}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{threshold\PYZus{}frame:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{threshold\PYZus{}frame}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{n+nb}{ord}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{k}{break}
+\end{Verbatim}
+
+
+    releasing all resources.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{video}\PY{o}{.}\PY{n}{release}\PY{p}{(}\PY{p}{)}
+        \PY{n}{out}\PY{o}{.}\PY{n}{release}\PY{p}{(}\PY{p}{)}
+        \PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Meanshift}\label{meanshift}
+
+    constructing meanshift detection
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} setup initial location of window}
+        \PY{n}{r}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{w} \PY{o}{=} \PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{125}  \PY{c+c1}{\PYZsh{} simply hardcoded the values}
+        \PY{n}{track\PYZus{}window} \PY{o}{=} \PY{p}{(}\PY{n}{c}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} set up the ROI for tracking}
+        \PY{n}{roi} \PY{o}{=} \PY{n}{frame}\PY{p}{[}\PY{n}{r}\PY{p}{:}\PY{n}{r}\PY{o}{+}\PY{n}{h}\PY{p}{,} \PY{n}{c}\PY{p}{:}\PY{n}{c}\PY{o}{+}\PY{n}{w}\PY{p}{]}
+        \PY{n}{hsv\PYZus{}roi} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{roi}\PY{p}{,} \PY{n}{cv}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2HSV}\PY{p}{)}
+        \PY{n}{mask} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{inRange}\PY{p}{(}\PY{n}{hsv\PYZus{}roi}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{60.}\PY{p}{,} \PY{l+m+mf}{32.}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{180.}\PY{p}{,} \PY{l+m+mf}{255.}\PY{p}{,} \PY{l+m+mf}{255.}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{roi\PYZus{}hist} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{calcHist}\PY{p}{(}\PY{p}{[}\PY{n}{hsv\PYZus{}roi}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{180}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{]}\PY{p}{)}
+        \PY{n}{cv}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{n}{roi\PYZus{}hist}\PY{p}{,} \PY{n}{roi\PYZus{}hist}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{n}{cv}\PY{o}{.}\PY{n}{NORM\PYZus{}MINMAX}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Setup the termination criteria, either 10 iteration or move by atleast 1 pt}
+        \PY{n}{term\PYZus{}crit} \PY{o}{=} \PY{p}{(}\PY{n}{cv}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}EPS} \PY{o}{|} \PY{n}{cv}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}COUNT}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    process of meanshift object detection
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{while}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{ret}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{cap}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+                \PY{k}{if} \PY{n}{ret} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                    \PY{n}{hsv} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{cv}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2HSV}\PY{p}{)}
+                    \PY{n}{dst} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{calcBackProject}\PY{p}{(}\PY{p}{[}\PY{n}{hsv}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{roi\PYZus{}hist}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{} apply meanshift to get the new location}
+                    \PY{n}{ret}\PY{p}{,} \PY{n}{track\PYZus{}window} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{CamShift}\PY{p}{(}\PY{n}{dst}\PY{p}{,} \PY{n}{track\PYZus{}window}\PY{p}{,} \PY{n}{term\PYZus{}crit}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{} Draw it on image}
+                    \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{track\PYZus{}window}
+                    \PY{n}{img2} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,} \PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        
+                    \PY{c+c1}{\PYZsh{} write the flipped frame}
+                    \PY{n}{out}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{img2}\PY{p}{)}
+        
+                    \PY{n}{cv}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{img2}\PY{p}{)}
+        
+                    \PY{k}{if} \PY{n}{cv}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{60}\PY{p}{)} \PY{o}{\PYZam{}} \PY{l+m+mh}{0xff} \PY{o}{==} \PY{n+nb}{ord}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{break}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{break}
+\end{Verbatim}
+
+
+    \subsection{Face Motion Tracking and
+Detection}\label{face-motion-tracking-and-detection}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{init\PYZus{}face\PYZus{}detection}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{p}{)}
+            \PY{n}{eyes\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{p}{)}
+        
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}(!)Error loading face cascade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{exit}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{eyes\PYZus{}cascade}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/haarcascade\PYZus{}eye.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}(!)Error loading eyes cascade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{exit}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{face\PYZus{}cascade}\PY{p}{,} \PY{n}{eyes\PYZus{}cascade}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{face\PYZus{}detect}\PY{p}{(}\PY{n}{frame}\PY{p}{)}\PY{p}{:}
+            \PY{n}{frame\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+            \PY{n}{frame\PYZus{}gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{equalizeHist}\PY{p}{(}\PY{n}{frame\PYZus{}gray}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZhy{} Detect faces}
+            \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}
+                \PY{n}{frame\PYZus{}gray}\PY{p}{,}
+                \PY{n}{scaleFactor}\PY{o}{=}\PY{l+m+mf}{1.1}\PY{p}{,}
+                \PY{n}{minNeighbors}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                \PY{n}{minSize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}
+            \PY{p}{)}
+            \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+                \PY{n}{center} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{w}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y} \PY{o}{+} \PY{n}{h}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{frame} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{center}\PY{p}{,} \PY{p}{(}\PY{n}{w}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{h}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                                   \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+                \PY{n}{faceROI} \PY{o}{=} \PY{n}{frame\PYZus{}gray}\PY{p}{[}\PY{n}{y}\PY{p}{:}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZhy{} In each face, detect eyes}
+                \PY{n}{eyes} \PY{o}{=} \PY{n}{eyes\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{faceROI}\PY{p}{)}
+                \PY{k}{for} \PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{w2}\PY{p}{,} \PY{n}{h2}\PY{p}{)} \PY{o+ow}{in} \PY{n}{eyes}\PY{p}{:}
+                    \PY{n}{eye\PYZus{}center} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{x2} \PY{o}{+} \PY{n}{w2}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{y} \PY{o}{+} \PY{n}{y2} \PY{o}{+} \PY{n}{h2}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+                    \PY{n}{radius} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{w2} \PY{o}{+} \PY{n}{h2}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{frame} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{eye\PYZus{}center}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{frame}
+\end{Verbatim}
+
+
+    \subsection{Hand Motion Detection and
+Tracking}\label{hand-motion-detection-and-tracking}
+
+    function to detect the hand motion and fingers
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{calculateFingers}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{drawing}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}  convexity defect}
+            \PY{n}{hull} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{convexHull}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{returnPoints}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{hull}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{3}\PY{p}{:}
+                \PY{n}{defects} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{convexityDefects}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{hull}\PY{p}{)}
+                \PY{k}{if} \PY{n}{defects} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{cnt} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{defects}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} calculate the angle}
+                        \PY{n}{s}\PY{p}{,} \PY{n}{e}\PY{p}{,} \PY{n}{f}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{n}{defects}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                        \PY{n}{start} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{res}\PY{p}{[}\PY{n}{s}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{end} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{res}\PY{p}{[}\PY{n}{e}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{far} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{res}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                        \PY{n}{a} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{end}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{end}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+                        \PY{n}{b} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{far}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{far}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+                        \PY{n}{c} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{end}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{far}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{end}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{far}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+                        \PY{n}{angle} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{acos}\PY{p}{(}\PY{p}{(}\PY{n}{b} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{c} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{a} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{b} \PY{o}{*} \PY{n}{c}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} cosine theorem}
+                        \PY{k}{if} \PY{n}{angle} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{pi} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{:}  \PY{c+c1}{\PYZsh{} angle less than 90 degree, treat as fingers}
+                            \PY{n}{cnt} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                            \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{drawing}\PY{p}{,} \PY{n}{far}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{211}\PY{p}{,} \PY{l+m+mi}{84}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{cnt} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{k}{return} \PY{k+kc}{True}\PY{p}{,} \PY{n}{cnt}\PY{o}{+}\PY{l+m+mi}{1}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{k}{return} \PY{k+kc}{True}\PY{p}{,} \PY{l+m+mi}{0}
+            \PY{k}{return} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    the process of hand gesture tracking
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{while} \PY{n}{camera}\PY{o}{.}\PY{n}{isOpened}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}Main Camera}
+            \PY{n}{ret}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{camera}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+            \PY{n}{frame} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{bilateralFilter}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Smoothing}
+            \PY{n}{frame} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{flip}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{}Horizontal Flip}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{)}
+        
+        
+            \PY{c+c1}{\PYZsh{}Background Removal}
+            \PY{n}{bgModel} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{createBackgroundSubtractorMOG2}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+            \PY{n}{fgmask} \PY{o}{=} \PY{n}{bgModel}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+        
+            \PY{n}{kernel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}
+            \PY{n}{fgmask} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{erode}\PY{p}{(}\PY{n}{fgmask}\PY{p}{,} \PY{n}{kernel}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{img} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{bitwise\PYZus{}and}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{frame}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{n}{fgmask}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Skin detect and thresholding}
+            \PY{n}{hsv} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2HSV}\PY{p}{)}
+            \PY{n}{lower} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{48}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uint8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{upper} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uint8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{skinMask} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{inRange}\PY{p}{(}\PY{n}{hsv}\PY{p}{,} \PY{n}{lower}\PY{p}{,} \PY{n}{upper}\PY{p}{)}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Threshold Hands}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skinMask}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Getting the contours and convex hull}
+            \PY{n}{skinMask1} \PY{o}{=} \PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{skinMask}\PY{p}{)}
+            \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{contours}\PY{p}{,} \PY{n}{hierarchy} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{findContours}\PY{p}{(}\PY{n}{skinMask1}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{RETR\PYZus{}TREE}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{CHAIN\PYZus{}APPROX\PYZus{}SIMPLE}\PY{p}{)}
+            \PY{n}{length} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{contours}\PY{p}{)}
+            \PY{n}{maxArea} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{k}{if} \PY{n}{length} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{length}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{temp} \PY{o}{=} \PY{n}{contours}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                    \PY{n}{area} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{contourArea}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{area} \PY{o}{\PYZgt{}} \PY{n}{maxArea}\PY{p}{:}
+                        \PY{n}{maxArea} \PY{o}{=} \PY{n}{area}
+                        \PY{n}{ci} \PY{o}{=} \PY{n}{i}
+        
+                \PY{n}{res} \PY{o}{=} \PY{n}{contours}\PY{p}{[}\PY{n}{ci}\PY{p}{]}
+                \PY{n}{hull} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{convexHull}\PY{p}{(}\PY{n}{res}\PY{p}{)}
+                \PY{n}{drawing} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{img}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{drawContours}\PY{p}{(}\PY{n}{drawing}\PY{p}{,} \PY{p}{[}\PY{n}{res}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{drawContours}\PY{p}{(}\PY{n}{drawing}\PY{p}{,} \PY{p}{[}\PY{n}{hull}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        
+                \PY{n}{isFinishCal}\PY{p}{,} \PY{n}{cnt} \PY{o}{=} \PY{n}{calculateFingers}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{drawing}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fingers}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{cnt}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drawing}\PY{p}{)}
+        
+            \PY{n}{outf}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+            \PY{n}{out}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{drawing}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{n+nb}{ord}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{k}{break}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
